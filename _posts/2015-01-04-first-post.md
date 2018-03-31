@@ -1,7 +1,9 @@
 ---
 layout: post
-title: First post!
-image: /img/hello_world.jpeg
+title: Reading Comprehension Model stat
 ---
 
-This is my first post, how exciting!
+
+# reading comprehension model
+					
+![Alt text](./img/1.png)

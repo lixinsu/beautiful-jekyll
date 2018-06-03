@@ -2,8 +2,6 @@
 layout: post
 title: reading record
 subtitle: part1
-gh-repo: daattali/beautiful-jekyll
-gh-badge: [star, fork, follow]
 tags: [reading]
 ---
 

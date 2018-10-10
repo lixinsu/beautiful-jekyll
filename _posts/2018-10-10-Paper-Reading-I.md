@@ -21,26 +21,25 @@ ELMo 结构首先训练一个相对复杂的神经网络语言模型，模型结
 在ELMo的具体实现中，作者还引入了残差结构，来克服参数量太大带来的训练困难。  
 ![Alt text](/img/1539137809702.png)
 
-此外，ELMo中采用字符感知的语言模型，具体来说每个词的embedding并不是简单的在embedding matrix 里查找对应的embedding，它首先将每个词拆分为字符序列，获得每个字符的embedding， 将词的字符embedding表示通过卷积层（多种filter）+池化层；再将该表示通过两层的 highway network。通过以上几层获得词的词的向量表示，将该表示输入到LSTM。细节可以参见关于[字符感知的语言模型](https://arxiv.org/pdf/1508.06615.pdf)
+此外，ELMo中采用字符感知的语言模型，具体来说每个词的embedding并不是简单的在embedding matrix 里查找对应的embedding，它首先将每个词拆分为字符序列，获得每个字符的embedding， 将词的字符embedding表示通过卷积层（多种filter）+池化层；再将该表示通过两层的 highway network。通过以上几层获得词的向量表示，将该表示输入到LSTM。细节可以参见关于[字符感知的语言模型](https://arxiv.org/pdf/1508.06615.pdf)
 下图截取自该论文。  
 
 ![Alt text](/img/1539132499103.png)  
 
-该过程的缩略表示如下  
+ELMo中每个词的embedding的计算过程如下  
 ![Alt text](/img/1539132801190.png)  
 
 **这些转换的优势在于以下几点**
  - 字符embedding经过多种尺寸的卷积核可以捕捉语素信息,使得对未登陆词也有合理的embedding表示
  - highway network可以对输入信息进行转换
  
-以上是关于其结构的介绍，ELMo的亮点在于其如何使用预训练的语言模型，而其语言模型结构基本同[论文](https://arxiv.org/abs/1602.02410)
-假定我们想要寻找第k个词的embedding，使用上述语言模型对整个句子进行运算得到两个不同层的LSTM输出和上下文无关向量输出（即通过CNN—>Highway后的输出）。然后对上述三者进行加权，如下图所示
+以上是关于其结构的介绍，ELMo的亮点在于其如何使用预训练的语言模型的输出结果。其对语言模型的不同层的输出进行加权，且权重根据任务去学习。具体过程如下，
+假定我们想要寻找第k个词的ELMo embeddings，我们将整个句子通过预训练的语言模型，收集上下文无关的词embedding和上下文相关的两层LSTM的输出，然后对上述三者进行加权，得到最终的ELMo embedding，过程如下图所示  
  ![Alt text](/img/1539138806514.png)  
-
 具体公式如下  
 ![Alt text](/img/1539134755347.png)  
 其中$S_i$表示softmax-normalized权重，是任务特定的可学习参数，$\gamma_k$表示一个超参数缩放因子。  
-使用时，将该加权表示代替或者加入到NLP任务的最底层，即代替Glove 或者拼接到其上。具体任务使用细节有待调试，比如把ELMo加入到RNN的输入处，还是RNN的输入输出都加，此处RNN是指NLP任务中的模型中最底层的RNN层。 另外为模型参数添加L2正则也可以提升模型效果。
+使用时，将ELMo embedding代替或者加入到NLP任务的最底层，即代替Glove 或者拼接到其上。具体任务使用细节有待调试，比如把ELMo加入到RNN的输入处，还是RNN的输入输出都加，此处RNN是指NLP任务中的模型中最底层的RNN层。 另外为模型参数添加L2正则也可以提升模型效果。
 
 ### 实验结果和分析
 | Task  | Previous SOTA  |  ELMo Results |
@@ -56,11 +55,11 @@ ELMo 结构首先训练一个相对复杂的神经网络语言模型，模型结
  进一步的实验结果分析可以说明该2-layer 双向LSTM模型的第二层捕捉更加长期的上下文信息，该层的输出适合于做词义消歧等语义任务，第一层捕捉较小的上下文信息
 
 ### Contextual Embedding 发展脉络浅谈
-ELMo 借助大规模语言模型受CoVE(NIPS 17)启发，[paper](https://arxiv.org/abs/1602.02410)研究如何在大语料上训练语言模型，[paper](https://github.com/salesforce/cove)研究使用翻译模型中的encoder编码输出作为contextual embedding。ELMo借助了大规模语言模型的结构，利用大量的单语语料，超越CoVe。
+ELMo 借助大规模语言模型受CoVE(NIPS 17)启发，[paper](https://arxiv.org/abs/1602.02410)研究如何在大语料上训练语言模型，[paper](https://github.com/salesforce/cove)研究使用翻译模型中的encoder编码输出作为contextual embedding。ELMo借助了大规模语言模型的结构，利用大量的单语语料和字符感知的语言模型，超越CoVe。
 
 该工作的前身是作者在ACL17年发表的[TagLM](https://arxiv.org/abs/1705.00108)， 其语言模型结构基本同ELMo，但是只用到其LSTM最上层输出，ELMo则使用了多层的输出，对多层输出进行加权，且在6个NLP任务上进行了实验。
 
-该工作后续的发展，作者在[EMNLP18发表新的论文](https://arxiv.org/abs/1808.08949)对不同结构语言模型效果进行探讨，弥补了ELMo直接无解释的使用LSTM结构问题。
+作者在[EMNLP18发表新的论文](https://arxiv.org/abs/1808.08949)对不同结构语言模型效果进行探讨，弥补了ELMo直接无解释的使用LSTM结构问题。
 
 [OpenAI有工作](https://blog.openai.com/language-unsupervised/)利用transformer训练大规模语言模型，其目的不再是利用语言模型产生词向量，而是将语言模型直接用到任务上，也就是语言模型的输出直接接上任务特定的输出层，例如，对于蕴含任务其直接将两段文本拼接，输入语言模型做分类，取得SOTA。大规模无标注语料的力量特别强大，预训练的语言模型真的有点imagenet上预训练的卷积层的味道。
 

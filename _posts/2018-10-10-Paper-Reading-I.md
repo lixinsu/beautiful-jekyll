@@ -42,8 +42,9 @@ ELMo中每个词的embedding的计算过程如下
 使用时，将ELMo embedding代替或者加入到NLP任务的最底层，即代替Glove 或者拼接到其上。具体任务使用细节有待调试，比如把ELMo加入到RNN的输入处，还是RNN的输入输出都加，此处RNN是指NLP任务中的模型中最底层的RNN层。 另外为模型参数添加L2正则也可以提升模型效果。
 
 ### 实验结果和分析
+
 | Task  | Previous SOTA  |  ELMo Results |
-|---|---|---|
+| --- | --- | --- |
 | SQuAD (question/answering)	| 84.4 |	85.8 |
 | SNLI (textual entailment)	| 88.6	| 88.7 |
 | Semantic Role Labelling |	81.7 |	84.6 |

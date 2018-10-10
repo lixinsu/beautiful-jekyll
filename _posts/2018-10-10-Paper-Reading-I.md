@@ -16,7 +16,7 @@ ELMo 结构首先训练一个相当复杂的神经网络语言模型，模型结
 语言模型的Wikipedia定义为 	`A statistical language model is a probability distribution over sequences of words.` 。可以将句子的语言模型分解为根据已有的词预测下一个词。有了训练好的语言模型，我们更容易知道`I am going to write with a` 下一个词是 `pencil` 的概率大于`frog`。
 
 对于ELMo，该模型的主要部分是2层的双向的LSTM网络。如下图所示  
-![Alt text](./img/1539137783760.png)
+![Alt text](/img/1539137783760.png)
 
 ELMo实现中，还加入残差结构。  
 ![Alt text](./img/1539137809702.png)

@@ -19,15 +19,15 @@ ELMo 结构首先训练一个相当复杂的神经网络语言模型，模型结
 ![Alt text](/img/1539137783760.png)
 
 ELMo实现中，还加入残差结构。  
-![Alt text](./img/1539137809702.png)
+![Alt text](/img/1539137809702.png)
 
 此外，ELMo还做了更加复杂但是有价值的操作，对于每个词的embedding其不是简单的在embedding matrix 里查找对应词的embedding，其首先将每个词拆分为字符，获得每个字符的embedding， 将词的字符embedding表示通过卷积层（多种filter）+ max-pool 层，再将该表示通过 2-layer highway network。通过以上基层获得每个词的向量表示，将该向量输入到LSTM。细节可以参见关于[字符感知的语言模型](https://arxiv.org/pdf/1508.06615.pdf)
 下图截取自该论文。  
 
-<img src="./img/1539132499103.png" width = "300"  alt="图片名称" align=center />
+<img src="/img/1539132499103.png" width = "300"  alt="图片名称" align=center />
 
 该过程的缩略表示图如下  
- <img src="./img/1539132801190.png" width = "300" alt="图片名称" align=center />
+ <img src="/img/1539132801190.png" width = "300" alt="图片名称" align=center />
  
  **这些转换的优势在于以下几点**
  - 字符embedding可以捕捉的语素信息,对袋外词有合理的表示
@@ -36,10 +36,10 @@ ELMo实现中，还加入残差结构。
 以上是关于其结构的介绍，
  ELMo的亮点在于其如何使用预训练的语言模型，而其语言模型结构基本同[论文](https://arxiv.org/abs/1602.02410)
  假定我们想要寻找第k个词的embedding，使用上述语言模型对整个句子进行运算得到两个不同层的LSTM输出和上下文无关向量输出（即通过CNN—>Highway后的输出）。我们对上述三者进行加权，如下图所示
- ![Alt text](./img/1539138806514.png)  
+ ![Alt text](/img/1539138806514.png)  
 
 具体公式如下
-![Alt text](./img/1539134755347.png)  
+![Alt text](/img/1539134755347.png)  
 其中$S_i$表示softmax-normalized权重，是任务特定的可学习参数，$\gamma_k$表示一个超参数缩放因子。
 将该加权表示代替或者加入到NLP任务的最低层，即代替Glove 或者拼接到其上，即可见效，具体任务使用细节有待调试，比如加入到RNN的输入处，还是RNN的输入输出都加，此处RNN指NLP task本来模型中最低层的RNN。 另外加L2正则也可以提升模型效果。
 ### 实验结果和分析

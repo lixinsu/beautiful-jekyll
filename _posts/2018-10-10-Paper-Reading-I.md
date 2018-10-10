@@ -24,11 +24,10 @@ ELMo实现中，还加入残差结构。
 此外，ELMo还做了更加复杂但是有价值的操作，对于每个词的embedding其不是简单的在embedding matrix 里查找对应词的embedding，其首先将每个词拆分为字符，获得每个字符的embedding， 将词的字符embedding表示通过卷积层（多种filter）+ max-pool 层，再将该表示通过 2-layer highway network。通过以上基层获得每个词的向量表示，将该向量输入到LSTM。细节可以参见关于[字符感知的语言模型](https://arxiv.org/pdf/1508.06615.pdf)
 下图截取自该论文。  
 
-<img src="/img/1539132499103.png" width = "300"  alt="图片名称" align=center />
-
+ ![Alt text](/img/1539132499103.png)  
 该过程的缩略表示图如下  
- <img src="/img/1539132801190.png" width = "300" alt="图片名称" align=center />
- 
+
+ ![Alt text](/img/1539132801190.png)  
  **这些转换的优势在于以下几点**
  - 字符embedding可以捕捉的语素信息,对袋外词有合理的表示
  - 卷积可以捕捉ngram信息，highway可以对输入信息进行转换

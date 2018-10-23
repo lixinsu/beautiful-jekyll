@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About me
-subtitle: 文能提笔安天下，武能上马定乾坤
+subtitle: What is reasonable is real; that which is real is reasonable.
 ---
 
 ## Basic

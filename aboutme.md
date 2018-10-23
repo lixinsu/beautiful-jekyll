@@ -1,17 +1,22 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: 文能提笔安天下，武能上马定乾坤
 ---
 
-I am a PHD student at ICT-CAS.I have follwing skills 
+## Basic
+Hi! I am a Ph.D. student in Institute Of Computing Technology at University of Chinese Academy of Sciences. 
+I am advised by Prof. Jiafeng Guo and work in CAS Key Lab of Network Data Science and Technology. 
+Before coming to UCAS, I received my bachelor degree at Beijing Jiaotong University in 2015. 
 
-- programing in python Go c++
-- intersted in Natural Language Processing
+My main research interests lie within deep learning for natural language processing, and I am particularly 
+interested in machine reading and Text-QA.
 
+## Experinece
+I worked as intern at DIDI, Toutiao, Baidu, Tencent, and Microsoft. 
 
+## Miscellaneous
+I like debuging and reading. 
+I program in python, c++, and golang. My favorite framework for deep learning is PyTorch.
 
-What else do you need?
-
-### my history
 

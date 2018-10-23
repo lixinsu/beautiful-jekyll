@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Paper Reading
-subtitle: ELMo
-tags: [deep learning]
+title: 《Deep Contextualized Word Representations》--NAACL 2018
+subtitle: 
+tags: [deep learning, paper reading]
 ---
-## 《Deep Contextualized Word Representations》--NAACL 2018
+
 ### 前言
 这篇文章中，我们介绍来自Allen AI 的 《Deep Contextualized Word Representation》。 该文章提出一种新的词向量 ELMo（Embeddings from Language Models）。 该词项量与Word2Vec ，GLoVe和CoVe相比取得更好效果。   
 论文贡献如下：  

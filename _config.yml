@@ -14,7 +14,7 @@ baseurl: ""
 # Of course don't forget to change the username and projectname to YOUR username and project
 
 # Name of website
-title: Coding&Reaing
+title: Coding&Reading
 
 # Short description of your site
 description: NLP tutorial, deep learning tutorial
@@ -72,7 +72,7 @@ social-network-links:
   rss: true
   email: "sulixinict@gmail.com"
   github: lixinsu
-#  twitter: daattali
+  twitter: LoooBottle
 #  reddit: yourname
 #  google-plus: +DeanAttali
 #  linkedin: daattali
@@ -92,7 +92,7 @@ share-links-active:
 #  twitter: true
 #  facebook: true
 #  google: false
-  linkedin: true
+#  linkedin: true
 
 # How to display the link to the website in the footer
 # Remove this if you don't want a link in the footer
@@ -101,7 +101,7 @@ share-links-active:
 # --- Web Statistics Section --- #
 
 # Fill in your Google Analytics ID to track your website using GA
-#google_analytics: ""
+  google_analytics: "UA-127952940-1"
 
 # Google Tag Manager ID
 #gtm: ""

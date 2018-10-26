@@ -6,6 +6,7 @@ tags:
   - deep learning
   - textual entailment
 published: true
+date: '2018-10-26'
 ---
 
 ## Introduction

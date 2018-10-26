@@ -14,7 +14,7 @@ The BIMPM model is one of the state of the art models on SNLI dataset,
 which classify a pair of sentences, premise and hypothesis, to neural, contradiction, and entailment.   
 The model mainly consiste of embedidng, contextual encoding, four matching operations, aggregration and fc layers.  
 The difficulty of implement the [BIMPM model](https://arxiv.org/abs/1702.03814) lies in the four matching operations. 
-In this blog, I will describe the details about the calculation setps. I will give the input and output of each operation, including the size and the calculation in the operation.  
+In this blog, I will describe the details about the calculation setps. I will give the input and output of each operation, including the size and the calculation in the operation. This blog can be viewed as a explaination of [code repo](https://github.com/galsang/BIMPM-pytorch).
 
 ### Preliminary
 - P denotes premise.  
@@ -55,10 +55,10 @@ The diagram is as folloes:
 The base cosine matching function fm is define as follows in original paper:
 ![base_function.png]({{site.baseurl}}/img/base_function.png)  
 
-con_p_fw: [b,p,100]
-con_p_bw: [b,p,100]
-con_h_fw: [b,p,100]
-con_h_bw: [b,p,100] 
+con_p_fw: [b,p,100]   
+con_p_bw: [b,p,100]     
+con_h_fw: [b,p,100]    
+con_h_bw: [b,p,100]   
 
 We conduct the basic fm operation as defined in the above picture to get the matching vectors.  
 Note that, the **function fm** conduct the basic matching bwteen sequence of vectors with a single vectors or a sequence of vectors with a sequence of vectors.  
@@ -77,16 +77,17 @@ Note: operation fm is just like the multi-head attention, which has multiple att
 
 ### Operation Two
 ![o2.png]({{site.baseurl}}/img/o2.png)  
-con_p_fw: [b,p,100]
-con_p_bw: [b,p,100]
-con_h_fw: [b,p,100]
-con_h_bw: [b,p,100] 
+con_p_fw: [b,p,100]  
+con_p_bw: [b,p,100]  
+con_h_fw: [b,p,100]  
+con_h_bw: [b,p,100]   
 
-mv_common_fw = parewise_fm(con_p_fw, con_h_fw)   ->  [b, p, h, 20]   
-mv_common_bw = pairwise_fm(con_p_bw, con_h_bw)   ->  [b, p, h, 20] 
-Inside parewise_fm, we compute fm(con_p_fw[b_index,i,:], con_h_fw[b_index,j,:]), where i = 1 to p , j= 1 to h .
+mv_common_fw = pairwise_fm(con_p_fw, con_h_fw)   ->  [b, p, h, 20]   
+mv_common_bw = paireise_fm(con_p_bw, con_h_bw)   ->  [b, p, h, 20]   
 
-We then compute the maximum for to get the matching vectors.   
+Inside fm, we compute fm(con_p_fw[b_index,i,:], con_h_fw[b_index,j,:]), where i = 1 to p , j= 1 to h .
+
+We then compute the maximum for to get the matching vectors.     
 mv_h_max_fw = max(mv_common_fw, dim=1) -> [b, h, 20]     
 mv_p_max_fw = max(mv_common_fw, dim=2) ->[b, p, 20]   
 mv_h_max_bw = max(mv_common_bw, dim=1)  ->[b, h, 20]    
@@ -105,7 +106,8 @@ con_h_fw: [b,p,100]
 con_h_bw: [b,p,100]   
 
 att_fw = attention(con_p_fw, con_h_fw) -> [b, p, h]  
-att_bw = attention(con_p_bw, con_h_bw)  ->  [b, p, h]      
+att_bw = attention(con_p_bw, con_h_bw)  ->  [b, p, h]    
+
 **Inside we calculate cosine similirity between two vectors con_p_fw[b_index, i, :] and con_h_fw[b_index, j, :])**
 
 att_h_fw = con_h_fw.unsqueeze(1) * att_fw.unsqueeze(3)  -> [b,p,h,100]  
@@ -113,35 +115,37 @@ att_h_bw = con_h_bw.unsqueeze(1) * att_bw.unsqueeze(3)  -> [b,p,h,100]
 att_p_fw = con_p_fw.unsqueeze(2) * att_fw.unsqueeze(3)  -> [b,p,h,100]  
 att_p_bw = con_p_bw.unsqueeze(2) * att_bw.unsqueeze(3)  -> [b,p,h,100]
 
-**con_p_fw.unsqueeze(1): [b,p,1,100] **  
-**att_fw.unsqueeze(3): [b, p, h, 1]**  
-**con_h_bw.unsqueeze(1): [b, 1, h, 100]**
+con_p_fw.unsqueeze(1): [b,p,1,100]   
+att_fw.unsqueeze(3): [b, p, h, 1]  
+con_h_bw.unsqueeze(1): [b, 1, h, 100]
 
-**For i-th vector con_p_fw[b_index,i,:] in premise corresponds to a matrix of size [h,100]. In operation 3, we calulate the weighted sum of of the matrix [h, 100] to vector of size 100. In operation 4, we max([h,100]) to get a vector of size 100 **   
+**For i-th vector con_p_fw[b_index,i,:] in premise corresponds to a matrix of size [h,100] composed by the hypothesis representations.   
+In operation 3, we calulate the weighted sum of of the matrix [h, 100] to vector of size 100.   
+In operation 4, we max([h,100]) to get a vector of size 100 **   
 
-In operation3, attentive vector is the weighted sum of each hidden dimension.
-att_mean_h_fw = att_h_fw.sum(dim=2) / att_fw.sum(dim=2, keepdim=True)     ->[b, p, 100]
-att_mean_h_bw = att_h_bw.sum(dim=2) / att_bw.sum(dim=2, keepdim=True)     ->[b, p, 100]
-att_mean_p_fw = att_p_fw.sum(dim=1) / att_fw.sum(dim=1, keepdim=True).permute(0, 2, 1)    ->[b, h, 100]
-att_mean_p_bw = att_p_bw.sum(dim=1) / att_bw.sum(dim=1, keepdim=True).permute(0, 2, 1)    -> [b, h, 100] 
+**In operation3, attentive vector is the weighted sum of each hidden dimension.**     
+att_mean_h_fw = att_h_fw.sum(dim=2) / att_fw.sum(dim=2, keepdim=True)     ->[b, p, 100]  
+att_mean_h_bw = att_h_bw.sum(dim=2) / att_bw.sum(dim=2, keepdim=True)     ->[b, p, 100]  
+att_mean_p_fw = att_p_fw.sum(dim=1) / att_fw.sum(dim=1, keepdim=True).permute(0, 2, 1)    ->[b, h, 100]  
+att_mean_p_bw = att_p_bw.sum(dim=1) / att_bw.sum(dim=1, keepdim=True).permute(0, 2, 1)    -> [b, h, 100]   
 
 
-In operation 4, attentive vector is maximum of each hidden dimension)  
-att_max_h_fw, _ = att_h_fw.max(dim=2)   ->[b, p, 100]
-att_max_h_bw, _ = att_h_bw.max(dim=2)    ->[b, p, 100]
-att_max_p_fw, _ = att_p_fw.max(dim=1)   ->[b, h, 100]
-att_max_p_bw, _ = att_p_bw.max(dim=1)    ->[b, h, 100]
+**In operation 4, attentive vector is maximum of each hidden dimension)**    
+att_max_h_fw, _ = att_h_fw.max(dim=2)   ->[b, p, 100]  
+att_max_h_bw, _ = att_h_bw.max(dim=2)    ->[b, p, 100]  
+att_max_p_fw, _ = att_p_fw.max(dim=1)   ->[b, h, 100]  
+att_max_p_bw, _ = att_p_bw.max(dim=1)    ->[b, h, 100]  
 
-Consequently, we can use the base operation fm to matching the contextual representations (e.g.con_*_*w) with attentive vectors(e.g.att_[max|mean]_[h\p]_*w)  
-mv_p_att_mean_fw = fm(con_p_fw, att_mean_h_fw, W5)  -> [b,p,20]
-mv_p_att_mean_bw = fm(con_p_bw, att_mean_h_bw, W6) -> [b,p,20]
-mv_h_att_mean_fw = fm(con_h_fw, att_mean_p_fw, W5)  -> [b,h,20]
-mv_h_att_mean_bw = fm(con_h_bw, att_mean_p_bw, W6)  -> [b,h,20]
+**Consequently, we can use the base operation fm to matching the contextual representations (e.g.con_*_*w) with attentive vectors(e.g.att_[max|mean]_[h\p]_*w)  **     
+mv_p_att_mean_fw = fm(con_p_fw, att_mean_h_fw, W5)  -> [b,p,20]  
+mv_p_att_mean_bw = fm(con_p_bw, att_mean_h_bw, W6) -> [b,p,20]  
+mv_h_att_mean_fw = fm(con_h_fw, att_mean_p_fw, W5)  -> [b,h,20]    
+mv_h_att_mean_bw = fm(con_h_bw, att_mean_p_bw, W6)  -> [b,h,20]  
 
-mv_p_att_max_fw = fm(con_p_fw, att_max_h_fw, W7)  -> [b,p,20]
-mv_p_att_max_bw = fm(con_p_bw, att_max_h_bw, W8)  -> [b,p,20]
-mv_h_att_max_fw = fm(con_h_fw, att_max_p_fw, W7)  -> [b,h,20]
-mv_h_att_max_bw = fm(con_h_bw, att_max_p_bw, W8)  -> [b,h,20]
+mv_p_att_max_fw = fm(con_p_fw, att_max_h_fw, W7)  -> [b,p,20]   
+mv_p_att_max_bw = fm(con_p_bw, att_max_h_bw, W8)  -> [b,p,20]  
+mv_h_att_max_fw = fm(con_h_fw, att_max_p_fw, W7)  -> [b,h,20]  
+mv_h_att_max_bw = fm(con_h_bw, att_max_p_bw, W8)  -> [b,h,20]  
 
 
 ### Last 

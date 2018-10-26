@@ -157,4 +157,5 @@ mv_p = torch.cat([mv_p_full_fw, mv_p_max_fw, mv_p_att_mean_fw, mv_p_att_max_fw,m
 pred = fc(cat(agg_p_last,agg_h_last ))
 
 DONE~
-总结： BIMPM模型和multihead attention比较像，但是比较其操作3,4中的attention vector算的比较贵，归一化用的不是softmax，不能保证权重为正。负的权重应该是不对的，这回负的权重乘到负的vecor向量上得到了正的值，anyway，想不通有点怪。
+总结： BIMPM模型和multihead attention比较像，一对向量算多个attention权重，4钟matching 操作起始就是在变换不同的attention weight计算方法,具体来讲就是attention weight 和谁算。前两种直接和对方的contextual表示算，后两种和attention vector 算。   
+但是比较其操作3,4中的attention vector算的比较怪，归一化用的不是softmax，不能保证权重为正。负的权重应该是不对的，这回负的权重乘到负的vecor向量上得到了正的值。

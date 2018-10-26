@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Implementation Details about BIMPM for NLI
-subtitle: Four match function for NLI
+subtitle: Four matching operations for NLI
 tags:
   - deep learning
   - textual entailment

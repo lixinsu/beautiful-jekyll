@@ -51,10 +51,10 @@ Then we are ready for matching operations.
 ### Operation One
 
 The diagram is as folloes:
-![o1.png]({{site.baseurl}}/img/o1.png)
+![o1.png]({{site.baseurl}}/img/o1.png)  
 
 The base cosine matching function fm is define as follows in original paper:
-
+![base_function.png]({{site.baseurl}}/img/base_function.png)  
 
 con_p_fw: [b,p,100]
 con_p_bw: [b,p,100]
@@ -72,7 +72,7 @@ mv_h_full_fw: [b, h, 20]
 mv_h_full_bw: [b, h, 20]
 
 ### Operation Two
-![o2.png]({{site.baseurl}}/img/o2.png)
+![o2.png]({{site.baseurl}}/img/o2.png)  
 con_p_fw: [b,p,100]
 con_p_bw: [b,p,100]
 con_h_fw: [b,p,100]
@@ -96,8 +96,8 @@ mv_h_max_bw: [b, h, 20]
 mv_p_max_bw: [b, p, 20]
 
 ### Operation Three  and Four
-![o3.png]({{site.baseurl}}/img/o3.png)
-![o4.png]({{site.baseurl}}/img/o4.png)
+![o3.png]({{site.baseurl}}/img/o3.png)  
+![o4.png]({{site.baseurl}}/img/o4.png)  
 The difficlty lies in the computation of the attentive matrix.  
 First we calculate the attention weigths, in practice each attention weight is a cosine similirity between two vectors.  
 
@@ -160,5 +160,3 @@ pred = fc(cat(agg_p_last,agg_h_last ))
 
 DONE~
 总结： BIMPM模型和multihead attention比较像，但是比较其操作3,4中的attention vector算的比较贵，归一化用的不是softmax，不能保证权重为正。负的权重应该是不对的，这回负的权重乘到负的vecor向量上得到了正的值，anyway，想不通有点怪。
-
-

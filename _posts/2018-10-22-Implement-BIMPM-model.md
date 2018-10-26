@@ -14,7 +14,7 @@ The BIMPM model is one of the state of the art models on SNLI dataset,
 which classify a pair of sentences, premise and hypothesis, to neural, contradiction, and entailment.   
 The model mainly consiste of embedidng, contextual encoding, four matching operations, aggregration and fc layers.  
 The difficulty of implement the [BIMPM model](https://arxiv.org/abs/1702.03814) lies in the four matching operations. 
-In this blog, I will describe the details about the calculation setps. I will give the input and output of each operation, including the size and the calculation in the operation. This blog can be viewed as a explaination of [code repo](https://github.com/galsang/BIMPM-pytorch).
+In this blog, I will describe the details about the calculation setps. I will give the input and output of each operation, including the size and the calculation in the operation. This blog can be viewed as an explaination of [code repo](https://github.com/galsang/BIMPM-pytorch).
 
 ### Preliminary
 - P denotes premise.  
@@ -136,7 +136,7 @@ att_max_h_bw, _ = att_h_bw.max(dim=2)    ->[b, p, 100]
 att_max_p_fw, _ = att_p_fw.max(dim=1)   ->[b, h, 100]  
 att_max_p_bw, _ = att_p_bw.max(dim=1)    ->[b, h, 100]  
 
-**Consequently, we can use the base operation fm to matching the contextual representations (e.g.con_*_*w) with attentive vectors(e.g.att_[max|mean]_[h|p]_[b|f]w)  **     
+**Consequently, we can use the base operation fm to matching the contextual representations (e.g.con\_[p|h]\_[f|b]w) with attentive vectors(e.g.att\_[max|mean]\_[h|p]\_[b|f]w)  **     
 mv_p_att_mean_fw = fm(con_p_fw, att_mean_h_fw, W5)  -> [b,p,20]  
 mv_p_att_mean_bw = fm(con_p_bw, att_mean_h_bw, W6) -> [b,p,20]  
 mv_h_att_mean_fw = fm(con_h_fw, att_mean_p_fw, W5)  -> [b,h,20]    

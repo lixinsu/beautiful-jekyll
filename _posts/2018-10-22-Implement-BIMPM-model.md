@@ -119,7 +119,7 @@ con_p_fw.unsqueeze(1): [b,p,1,100]
 att_fw.unsqueeze(3): [b, p, h, 1]  
 con_h_bw.unsqueeze(1): [b, 1, h, 100]
 
-**For i-th vector con_p_fw[b_index,i,:] in premise corresponds to a matrix of size [h,100] composed by the hypothesis representations.   
+**For i-th vector con\_p\_fw[b\_index,i,:] in premise corresponds to a matrix of size [h,100] composed by the hypothesis representations.   
 In operation 3, we calulate the weighted sum of of the matrix [h, 100] to vector of size 100.   
 In operation 4, we max([h,100]) to get a vector of size 100 **   
 

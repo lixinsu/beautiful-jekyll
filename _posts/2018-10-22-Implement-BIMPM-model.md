@@ -110,10 +110,10 @@ att_bw = attention(con_p_bw, con_h_bw)  ->  [b, p, h]
 
 **Inside we calculate cosine similirity between two vectors con_p_fw[b_index, i, :] and con_h_fw[b_index, j, :])**
 
-att_h_fw = con_h_fw.unsqueeze(1) * att_fw.unsqueeze(3)  -> [b,p,h,100]  
-att_h_bw = con_h_bw.unsqueeze(1) * att_bw.unsqueeze(3)  -> [b,p,h,100]  
-att_p_fw = con_p_fw.unsqueeze(2) * att_fw.unsqueeze(3)  -> [b,p,h,100]  
-att_p_bw = con_p_bw.unsqueeze(2) * att_bw.unsqueeze(3)  -> [b,p,h,100]
+att_h_fw = con_h_fw.unsqueeze(1) \* att_fw.unsqueeze(3)  -> [b,p,h,100]  
+att_h_bw = con_h_bw.unsqueeze(1) \* att_bw.unsqueeze(3)  -> [b,p,h,100]  
+att_p_fw = con_p_fw.unsqueeze(2) \* att_fw.unsqueeze(3)  -> [b,p,h,100]  
+att_p_bw = con_p_bw.unsqueeze(2) \* att_bw.unsqueeze(3)  -> [b,p,h,100]
 
 con_p_fw.unsqueeze(1): [b,p,1,100]   
 att_fw.unsqueeze(3): [b, p, h, 1]  

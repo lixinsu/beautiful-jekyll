@@ -121,7 +121,7 @@ con_h_bw.unsqueeze(1): [b, 1, h, 100]
 
 **For i-th vector con\_p\_fw[b\_index,i,:] in premise corresponds to a matrix of size [h,100] composed by the hypothesis representations.   
 In operation 3, we calulate the weighted sum of of the matrix [h, 100] to vector of size 100.   
-In operation 4, we max([h,100]) to get a vector of size 100 **   
+In operation 4, we max([h,100]) to get a vector of size 100**   
 
 **In operation3, attentive vector is the weighted sum of each hidden dimension.**     
 att_mean_h_fw = att_h_fw.sum(dim=2) / att_fw.sum(dim=2, keepdim=True)     ->[b, p, 100]  
@@ -136,7 +136,7 @@ att_max_h_bw, _ = att_h_bw.max(dim=2)    ->[b, p, 100]
 att_max_p_fw, _ = att_p_fw.max(dim=1)   ->[b, h, 100]  
 att_max_p_bw, _ = att_p_bw.max(dim=1)    ->[b, h, 100]  
 
-**Consequently, we can use the base operation fm to matching the contextual representations (e.g.con\_[p|h]\_[f|b]w) with attentive vectors(e.g.att\_[max|mean]\_[h|p]\_[b|f]w)  **     
+**Consequently, we can use the base operation fm to matching the contextual representations (e.g.con\_[p|h]\_[f|b]w) with attentive vectors(e.g.att\_[max|mean]\_[h|p]\_[b|f]w)**     
 mv_p_att_mean_fw = fm(con_p_fw, att_mean_h_fw, W5)  -> [b,p,20]  
 mv_p_att_mean_bw = fm(con_p_bw, att_mean_h_bw, W6) -> [b,p,20]  
 mv_h_att_mean_fw = fm(con_h_fw, att_mean_p_fw, W5)  -> [b,h,20]    

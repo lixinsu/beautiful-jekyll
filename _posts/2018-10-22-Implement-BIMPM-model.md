@@ -136,7 +136,7 @@ att_max_h_bw, _ = att_h_bw.max(dim=2)    ->[b, p, 100]
 att_max_p_fw, _ = att_p_fw.max(dim=1)   ->[b, h, 100]  
 att_max_p_bw, _ = att_p_bw.max(dim=1)    ->[b, h, 100]  
 
-**Consequently, we can use the base operation fm to matching the contextual representations (e.g.con_*_*w) with attentive vectors(e.g.att_[max|mean]_[h\p]_*w)  **     
+**Consequently, we can use the base operation fm to matching the contextual representations (e.g.con_*_*w) with attentive vectors(e.g.att_[max|mean]_[h|p]_[b|f]w)  **     
 mv_p_att_mean_fw = fm(con_p_fw, att_mean_h_fw, W5)  -> [b,p,20]  
 mv_p_att_mean_bw = fm(con_p_bw, att_mean_h_bw, W6) -> [b,p,20]  
 mv_h_att_mean_fw = fm(con_h_fw, att_mean_p_fw, W5)  -> [b,h,20]    

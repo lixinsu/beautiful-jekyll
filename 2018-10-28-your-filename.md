@@ -1,3 +1,16 @@
-## A New Post
+## Tensor operation mapping
 
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
+K.expand_dims(hypothesis_encoding, axis=1)  === unsqueeze   
+premise_encoding * hypothesis_encoding === *    
+softmax(A, axis=2)   === softmax   
+K.batch_dot(SA, P) === bmm   
+K.concatenate([P, itr_attn], axis=2)  === cat   
+```python
+You can then use TimeDistributed to apply a Dense layer to each of the 10 timesteps, independently:
+
+# as the first layer in a model
+model = Sequential()
+model.add(TimeDistributed(Dense(8), input_shape=(10, 16)))
+# now model.output_shape == (None, 10, 8)
+```
+

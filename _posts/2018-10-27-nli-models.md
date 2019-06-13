@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: NLI models
 date: '2018-10-27'
 ---
@@ -13,5 +13,3 @@ In this blog, we will survey several models on SNLI dataset. We will present the
 ### 
 
 ### mLSTM
-
-

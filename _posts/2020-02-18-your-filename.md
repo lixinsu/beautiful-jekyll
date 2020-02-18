@@ -3,10 +3,10 @@ layout: post
 published: true
 title: ''
 date: '2020-01-01'
-subtitle: 科研信息
+subtitle: 论文投稿
 ---
 
-##学术会议投稿时间列表
+## 学术会议投稿时间列表
 
 | conference      | Deadline |   Notification |  Location 
 | ----------- | ----------- | -----------  | ----------- |

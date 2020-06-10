@@ -13,8 +13,9 @@ subtitle: 找工复习内容框架和进度记录
 
 ### 机器学习知识：
 	ML论文阅读
-    	-[] Scaling Distributed Machine Learning with the Parameter Server 
-        - [ ] Communication Efficient Distributed Machine Learning with the Parameter Server
+	
+- [ ] Scaling Distributed Machine Learning with the Parameter Server 
+- [x] Communication Efficient Distributed Machine Learning with the Parameter Server
        	
     DL论文阅读      
         optimizer： 

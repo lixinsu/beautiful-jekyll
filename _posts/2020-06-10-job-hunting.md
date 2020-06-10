@@ -11,47 +11,82 @@ subtitle: 找工复习内容框架和进度记录
 
 复习从两个维度入手机器学习知识和算法题目。
 
-### 机器学习知识：
+[TOC]
 
-ML论文阅读
+### 机器学习知识
 
-分布式
+------
+
+
+
+#### ML论文阅读
+
+###### 分布式
 
 - [x] Scaling Distributed Machine Learning with the Parameter Server 
 - [x] Communication Efficient Distributed Machine Learning with the Parameter Server
 
-基于树的算法
+###### 基于树的算法
 
 - [ ] https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf
 
-- [ ] 
-
   
 
-DL论文阅读
+#### DL论文阅读
 
-optimizer 
+###### optimizer 
 
-- [ ] ADAM: A METHOD FOR STOCHASTIC OPTIMIZATION
-- [ ] On the Variance of the Adaptive Learning Rate and Beyond
+- [x] ADAM: A METHOD FOR STOCHASTIC OPTIMIZATION
+- [x] On the Variance of the Adaptive Learning Rate and Beyond
 
- structure
-    	
+######  structure
 
-```
-dricks：
-	- [ ] Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift
-```
+- [x] Attention Is All You Need
+
+###### dricks
+
+- [x] Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift
+- [x] Layer Normalization
 
 
 ​    
 
-QA论文阅读
-	MRC：
-    
+#### QA论文阅读
 
-算法推导
+###### 	MRC
+
+
+
+​    
+
+#### 算法基础
+
+###### 聚类算法
+
+
+
+###### kernel trick
+
+
+
+
+
+
 
 ### 算法题目复习
 
-    原来刷过的九章算法题目复习
+------
+
+#### 九章基础
+
+###### 数组
+
+
+
+###### 双指针
+
+
+
+#### 剑指offer
+
+###### 

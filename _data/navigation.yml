@@ -1,0 +1,29 @@
+# main links links
+main:
+  - title: "Publications"
+    url: /publications/
+
+#  - title: "Projects"
+#    url: /projects/
+  - title: "Talks"
+    url: /talks/
+
+  - title: "Awards"
+    url: /awards/
+
+  - title: "CV"
+    url: /files/lixinsu.pdf
+
+
+  # - title: "Teaching"
+  #   url: /teaching/
+
+  # - title: "Portfolio"
+  #   url: /portfolio/
+
+  # - title: "Blog Posts"
+  #   url: /year-archive/
+    
+  # - title: "Guide"
+  #   url: /markdown/
+

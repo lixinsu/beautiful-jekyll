@@ -1,0 +1,11 @@
+TY  - RPRT
+T1  - TGIF-QA: Toward Spatio-Temporal Reasoning in Visual Question Answering
+A1  - Jang, Yunseok
+A1  - Song, Yale
+A1  - Yu, Youngjae
+A1  - Kim, Youngjin
+A1  - Kim, Gunhee
+UR  - http://vision.snu.ac.kr/projects/tgif-qa
+L1  - file:///Users/lynn/Library/Application Support/Mendeley Desktop/Downloaded/Jang et al. - Unknown - TGIF-QA Toward Spatio-Temporal Reasoning in Visual Question Answering.pdf
+N2  - Vision and language understanding has emerged as a subject undergoing intense study in Artificial Intelligence. Among many tasks in this line of research, visual question answering (VQA) has been one of the most successful ones, where the goal is to learn a model that understands visual content at region-level details and finds their associations with pairs of questions and answers in the natural language form. Despite the rapid progress in the past few years, most existing work in VQA have focused primarily on images. In this paper, we focus on extending VQA to the video domain and contribute to the literature in three important ways. First, we propose three new tasks designed specifically for video VQA, which require spatio-temporal reasoning from videos to answer questions correctly. Next, we introduce a new large-scale dataset for video VQA named TGIF-QA that extends existing VQA work with our new tasks. Finally, we propose a dual-LSTM based approach with both spatial and temporal attention, and show its effectiveness over conventional VQA techniques through empirical evaluations.
+ER  - 
